@@ -18,7 +18,7 @@ class ContestInformation{
  * @param {string} [contestScreenName] コンテスト名
  * @return {Promise<ContestInformation>} コンテスト情報を返すPromise
  */
-export async function contestInformation(contestScreenName) {
+export async function fetchContestInformation(contestScreenName) {
     return new Promise(async (resolve) => {
         const topPageDom = await $.ajax(`https://atcoder.jp/contests/${contestScreenName}`).then(x => new DOMParser().parseFromString(x, "text/html"));
         const dataParagraph = topPageDom.getElementsByClassName("small")[0];
