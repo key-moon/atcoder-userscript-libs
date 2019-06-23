@@ -1,6 +1,6 @@
 {
     "name": "atcoder-userscript-libs",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "AtCoderのページ上で動作するスクリプト用のライブラリです。",
     "main": "/src/main.js",
     "author": "keymoon",
