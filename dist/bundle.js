@@ -1,4 +1,4 @@
-usLibs = typeof(usLibs) !== "undefined" ? usLibs :
+var usLibs =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -95,133 +95,133 @@ module.exports = moment;
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = jQuery;
+module.exports = has;
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = has;
+module.exports = arrayToSet;
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = arrayToSet;
+module.exports = setToArray;
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
-module.exports = setToArray;
+module.exports = setCookie;
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = setCookie;
+module.exports = getCookie;
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = getCookie;
+module.exports = getCookieBool;
 
 /***/ }),
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = getCookieBool;
+module.exports = delCookie;
 
 /***/ }),
 /* 8 */
 /***/ (function(module, exports) {
 
-module.exports = delCookie;
+module.exports = setLS;
 
 /***/ }),
 /* 9 */
 /***/ (function(module, exports) {
 
-module.exports = setLS;
+module.exports = getLS;
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
-module.exports = getLS;
+module.exports = delLS;
 
 /***/ }),
 /* 11 */
 /***/ (function(module, exports) {
 
-module.exports = delLS;
+module.exports = getServerTime;
 
 /***/ }),
 /* 12 */
 /***/ (function(module, exports) {
 
-module.exports = getServerTime;
+module.exports = rand;
 
 /***/ }),
 /* 13 */
 /***/ (function(module, exports) {
 
-module.exports = rand;
+module.exports = copy;
 
 /***/ }),
 /* 14 */
 /***/ (function(module, exports) {
 
-module.exports = copy;
+module.exports = storeFavs;
 
 /***/ }),
 /* 15 */
 /***/ (function(module, exports) {
 
-module.exports = storeFavs;
+module.exports = reloadFavs;
 
 /***/ }),
 /* 16 */
 /***/ (function(module, exports) {
 
-module.exports = reloadFavs;
+module.exports = toggleFav;
 
 /***/ }),
 /* 17 */
 /***/ (function(module, exports) {
 
-module.exports = toggleFav;
+module.exports = LANG;
 
 /***/ }),
 /* 18 */
 /***/ (function(module, exports) {
 
-module.exports = LANG;
+module.exports = userScreenName;
 
 /***/ }),
 /* 19 */
 /***/ (function(module, exports) {
 
-module.exports = userScreenName;
+module.exports = (typeof contestScreenName !== "undefined" ? contestScreenName : null);
 
 /***/ }),
 /* 20 */
 /***/ (function(module, exports) {
 
-module.exports = (typeof contestScreenName !== "undefined" ? contestScreenName : null);
+module.exports = (typeof startTime !== "undefined" ? startTime : null);
 
 /***/ }),
 /* 21 */
 /***/ (function(module, exports) {
 
-module.exports = (typeof startTime !== "undefined" ? startTime : null);
+module.exports = (typeof endTime !== "undefined" ? endTime : null);
 
 /***/ }),
 /* 22 */
 /***/ (function(module, exports) {
 
-module.exports = (typeof endTime !== "undefined" ? endTime : null);
+module.exports = jQuery;
 
 /***/ }),
 /* 23 */
@@ -264,6 +264,7 @@ __webpack_require__.d(global_namespaceObject, "startTime", function() { return e
 __webpack_require__.d(global_namespaceObject, "endTime", function() { return external_typeof_endTime_undefined_endTime_null_default.a; });
 var data_namespaceObject = {};
 __webpack_require__.r(data_namespaceObject);
+__webpack_require__.d(data_namespaceObject, "getJsonData", function() { return getJsonData; });
 __webpack_require__.d(data_namespaceObject, "getStandingsData", function() { return getStandingsData; });
 __webpack_require__.d(data_namespaceObject, "getAPerfsData", function() { return getAPerfsData; });
 __webpack_require__.d(data_namespaceObject, "getResultsData", function() { return getResultsData; });
@@ -272,7 +273,7 @@ __webpack_require__.d(data_namespaceObject, "getMyHistoryData", function() { ret
 __webpack_require__.d(data_namespaceObject, "getPerformanceHistories", function() { return getPerformanceHistories; });
 var contestInformation_namespaceObject = {};
 __webpack_require__.r(contestInformation_namespaceObject);
-__webpack_require__.d(contestInformation_namespaceObject, "contestInformation", function() { return contestInformation; });
+__webpack_require__.d(contestInformation_namespaceObject, "fetchContestInformation", function() { return fetchContestInformation; });
 
 // CONCATENATED MODULE: ./src/libs/rating.js
 ﻿//Copyright © 2017 koba-e964.
@@ -392,94 +393,94 @@ function getColor(rating) {
     return colorNames[colorIndex];
 }
 // EXTERNAL MODULE: external "jQuery"
-var external_jQuery_ = __webpack_require__(1);
+var external_jQuery_ = __webpack_require__(22);
 
 // EXTERNAL MODULE: external "moment"
 var external_moment_ = __webpack_require__(0);
 var external_moment_default = /*#__PURE__*/__webpack_require__.n(external_moment_);
 
 // EXTERNAL MODULE: external "has"
-var external_has_ = __webpack_require__(2);
+var external_has_ = __webpack_require__(1);
 var external_has_default = /*#__PURE__*/__webpack_require__.n(external_has_);
 
 // EXTERNAL MODULE: external "arrayToSet"
-var external_arrayToSet_ = __webpack_require__(3);
+var external_arrayToSet_ = __webpack_require__(2);
 var external_arrayToSet_default = /*#__PURE__*/__webpack_require__.n(external_arrayToSet_);
 
 // EXTERNAL MODULE: external "setToArray"
-var external_setToArray_ = __webpack_require__(4);
+var external_setToArray_ = __webpack_require__(3);
 var external_setToArray_default = /*#__PURE__*/__webpack_require__.n(external_setToArray_);
 
 // EXTERNAL MODULE: external "setCookie"
-var external_setCookie_ = __webpack_require__(5);
+var external_setCookie_ = __webpack_require__(4);
 var external_setCookie_default = /*#__PURE__*/__webpack_require__.n(external_setCookie_);
 
 // EXTERNAL MODULE: external "getCookie"
-var external_getCookie_ = __webpack_require__(6);
+var external_getCookie_ = __webpack_require__(5);
 var external_getCookie_default = /*#__PURE__*/__webpack_require__.n(external_getCookie_);
 
 // EXTERNAL MODULE: external "getCookieBool"
-var external_getCookieBool_ = __webpack_require__(7);
+var external_getCookieBool_ = __webpack_require__(6);
 var external_getCookieBool_default = /*#__PURE__*/__webpack_require__.n(external_getCookieBool_);
 
 // EXTERNAL MODULE: external "delCookie"
-var external_delCookie_ = __webpack_require__(8);
+var external_delCookie_ = __webpack_require__(7);
 var external_delCookie_default = /*#__PURE__*/__webpack_require__.n(external_delCookie_);
 
 // EXTERNAL MODULE: external "setLS"
-var external_setLS_ = __webpack_require__(9);
+var external_setLS_ = __webpack_require__(8);
 var external_setLS_default = /*#__PURE__*/__webpack_require__.n(external_setLS_);
 
 // EXTERNAL MODULE: external "getLS"
-var external_getLS_ = __webpack_require__(10);
+var external_getLS_ = __webpack_require__(9);
 var external_getLS_default = /*#__PURE__*/__webpack_require__.n(external_getLS_);
 
 // EXTERNAL MODULE: external "delLS"
-var external_delLS_ = __webpack_require__(11);
+var external_delLS_ = __webpack_require__(10);
 var external_delLS_default = /*#__PURE__*/__webpack_require__.n(external_delLS_);
 
 // EXTERNAL MODULE: external "getServerTime"
-var external_getServerTime_ = __webpack_require__(12);
+var external_getServerTime_ = __webpack_require__(11);
 var external_getServerTime_default = /*#__PURE__*/__webpack_require__.n(external_getServerTime_);
 
 // EXTERNAL MODULE: external "rand"
-var external_rand_ = __webpack_require__(13);
+var external_rand_ = __webpack_require__(12);
 var external_rand_default = /*#__PURE__*/__webpack_require__.n(external_rand_);
 
 // EXTERNAL MODULE: external "copy"
-var external_copy_ = __webpack_require__(14);
+var external_copy_ = __webpack_require__(13);
 var external_copy_default = /*#__PURE__*/__webpack_require__.n(external_copy_);
 
 // EXTERNAL MODULE: external "storeFavs"
-var external_storeFavs_ = __webpack_require__(15);
+var external_storeFavs_ = __webpack_require__(14);
 var external_storeFavs_default = /*#__PURE__*/__webpack_require__.n(external_storeFavs_);
 
 // EXTERNAL MODULE: external "reloadFavs"
-var external_reloadFavs_ = __webpack_require__(16);
+var external_reloadFavs_ = __webpack_require__(15);
 var external_reloadFavs_default = /*#__PURE__*/__webpack_require__.n(external_reloadFavs_);
 
 // EXTERNAL MODULE: external "toggleFav"
-var external_toggleFav_ = __webpack_require__(17);
+var external_toggleFav_ = __webpack_require__(16);
 var external_toggleFav_default = /*#__PURE__*/__webpack_require__.n(external_toggleFav_);
 
 // EXTERNAL MODULE: external "LANG"
-var external_LANG_ = __webpack_require__(18);
+var external_LANG_ = __webpack_require__(17);
 var external_LANG_default = /*#__PURE__*/__webpack_require__.n(external_LANG_);
 
 // EXTERNAL MODULE: external "userScreenName"
-var external_userScreenName_ = __webpack_require__(19);
+var external_userScreenName_ = __webpack_require__(18);
 var external_userScreenName_default = /*#__PURE__*/__webpack_require__.n(external_userScreenName_);
 
 // EXTERNAL MODULE: external "(typeof contestScreenName !== \"undefined\" ? contestScreenName : null)"
-var external_typeof_contestScreenName_undefined_contestScreenName_null_ = __webpack_require__(20);
+var external_typeof_contestScreenName_undefined_contestScreenName_null_ = __webpack_require__(19);
 var external_typeof_contestScreenName_undefined_contestScreenName_null_default = /*#__PURE__*/__webpack_require__.n(external_typeof_contestScreenName_undefined_contestScreenName_null_);
 
 // EXTERNAL MODULE: external "(typeof startTime !== \"undefined\" ? startTime : null)"
-var external_typeof_startTime_undefined_startTime_null_ = __webpack_require__(21);
+var external_typeof_startTime_undefined_startTime_null_ = __webpack_require__(20);
 var external_typeof_startTime_undefined_startTime_null_default = /*#__PURE__*/__webpack_require__.n(external_typeof_startTime_undefined_startTime_null_);
 
 // EXTERNAL MODULE: external "(typeof endTime !== \"undefined\" ? endTime : null)"
-var external_typeof_endTime_undefined_endTime_null_ = __webpack_require__(22);
+var external_typeof_endTime_undefined_endTime_null_ = __webpack_require__(21);
 var external_typeof_endTime_undefined_endTime_null_default = /*#__PURE__*/__webpack_require__.n(external_typeof_endTime_undefined_endTime_null_);
 
 // CONCATENATED MODULE: ./src/libs/global.js
@@ -531,12 +532,21 @@ var external_typeof_endTime_undefined_endTime_null_default = /*#__PURE__*/__webp
  */
 
 /**
+ * urlにあるjsonデータを取得する
+ * @param url
+ * @return {Promise<{}>}
+ */
+async function getJsonData(url) {
+    return await external_jQuery_["ajax"]({url: url, dataType: "json"})
+}
+
+/**
  *
  * @param contestScreenName
  * @return {Promise<Standings>}
  */
 async function getStandingsData(contestScreenName) {
-    return await external_jQuery_["ajax"](`https://atcoder.jp/contests/${contestScreenName}/standings/json`);
+    return await getJsonData(`https://atcoder.jp/contests/${contestScreenName}/standings/json`);
 }
 
 /**
@@ -545,7 +555,7 @@ async function getStandingsData(contestScreenName) {
  * @return {Promise<Object.<string, number>>}
  */
 async function getAPerfsData(contestScreenName) {
-    return await external_jQuery_["ajax"](`https://ac-predictor.azurewebsites.net/api/aperfs/${contestScreenName}`);
+    return await getJsonData(`https://ac-predictor.azurewebsites.net/api/aperfs/${contestScreenName}`);
 }
 
 /**
@@ -554,7 +564,7 @@ async function getAPerfsData(contestScreenName) {
  * @return {Promise<UserResult[]>}
  */
 async function getResultsData(contestScreenName) {
-    return await external_jQuery_["ajax"](`https://atcoder.jp/contests/${contestScreenName}/results/json`);
+    return await getJsonData(`https://atcoder.jp/contests/${contestScreenName}/results/json`);
 }
 
 /**
@@ -563,7 +573,7 @@ async function getResultsData(contestScreenName) {
  * @return {Promise<UserResult[]>}
  */
 async function getHistoryData(userScreenName) {
-    return await external_jQuery_["ajax"](`https://atcoder.jp/users/${userScreenName}/history/json`);
+    return await getJsonData(`https://atcoder.jp/users/${userScreenName}/history/json`);
 }
 
 
@@ -618,7 +628,7 @@ class ContestInformation{
  * @param {string} [contestScreenName] コンテスト名
  * @return {Promise<ContestInformation>} コンテスト情報を返すPromise
  */
-async function contestInformation(contestScreenName) {
+async function fetchContestInformation(contestScreenName) {
     return new Promise(async (resolve) => {
         const topPageDom = await $.ajax(`https://atcoder.jp/contests/${contestScreenName}`).then(x => new DOMParser().parseFromString(x, "text/html"));
         const dataParagraph = topPageDom.getElementsByClassName("small")[0];
@@ -665,6 +675,7 @@ async function contestInformation(contestScreenName) {
 /* concated harmony reexport data */__webpack_require__.d(__webpack_exports__, "data", function() { return data_namespaceObject; });
 /* concated harmony reexport contestInformation */__webpack_require__.d(__webpack_exports__, "contestInformation", function() { return contestInformation_namespaceObject; });
 /* concated harmony reexport global */__webpack_require__.d(__webpack_exports__, "global", function() { return global_namespaceObject; });
+
 
 
 
