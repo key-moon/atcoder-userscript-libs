@@ -9,12 +9,21 @@ import * as $ from 'jquery';
  */
 
 /**
+ * urlにあるjsonデータを取得する
+ * @param url
+ * @return {Promise<{}>}
+ */
+export async function getJsonData(url) {
+    return await $.ajax({url: url, dataType: "json"})
+}
+
+/**
  *
  * @param contestScreenName
  * @return {Promise<Standings>}
  */
 export async function getStandingsData(contestScreenName) {
-    return await $.ajax(`https://atcoder.jp/contests/${contestScreenName}/standings/json`);
+    return await getJsonData(`https://atcoder.jp/contests/${contestScreenName}/standings/json`);
 }
 
 /**
@@ -23,7 +32,7 @@ export async function getStandingsData(contestScreenName) {
  * @return {Promise<Object.<string, number>>}
  */
 export async function getAPerfsData(contestScreenName) {
-    return await $.ajax(`https://ac-predictor.azurewebsites.net/api/aperfs/${contestScreenName}`);
+    return await getJsonData(`https://ac-predictor.azurewebsites.net/api/aperfs/${contestScreenName}`);
 }
 
 /**
@@ -32,7 +41,7 @@ export async function getAPerfsData(contestScreenName) {
  * @return {Promise<UserResult[]>}
  */
 export async function getResultsData(contestScreenName) {
-    return await $.ajax(`https://atcoder.jp/contests/${contestScreenName}/results/json`);
+    return await getJsonData(`https://atcoder.jp/contests/${contestScreenName}/results/json`);
 }
 
 /**
@@ -41,7 +50,7 @@ export async function getResultsData(contestScreenName) {
  * @return {Promise<UserResult[]>}
  */
 export async function getHistoryData(userScreenName) {
-    return await $.ajax(`https://atcoder.jp/users/${userScreenName}/history/json`);
+    return await getJsonData(`https://atcoder.jp/users/${userScreenName}/history/json`);
 }
 
 
