@@ -46,7 +46,7 @@ export async function fetchContestInformation(contestScreenName) {
      */
     function parseDurationString(s) {
         if (s === "None" || s === "なし") return 0;
-        if (!/(\d+[^\d]+)/.test(s)) return NaN;
+        if (/(\d+[^\d]+)/.test(s)) return NaN;
         const dic = {ヶ月: "month", 日: "day", 時間: "hour", 分: "minute", 秒: "second"};
         let res = {};
         s.match(/(\d+[^\d]+)/g).forEach(x => {
