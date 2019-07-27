@@ -154,7 +154,7 @@ export async function fetchContestInformation(contestScreenName) {
      */
     function parsePointString(s) {
         if (s.match(/\d+/)) return parseInt(s);
-        if (s.match(/(\d+)\(\d+\)/)) return s.match(/(\d+)\(\d+\)/)[1];  // 部分点
+        if (s.match(/(\d+)\(\d+\)/)) return parseInt(s.match(/(\d+)\(\d+\)/)[1]);  // 部分点
         return NaN;
     }
 }
