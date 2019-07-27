@@ -1,15 +1,85 @@
 import * as moment from "moment";
+import { getStandingsData } from "./data";
+import { getLS } from "./global";
 
 class ContestInformation{
     /**
+     * @param {string} [contestScreenName]
      * @param {number[]} [participatableRange]
      * @param {number[]} [ratedRange]
      * @param {number} [penalty]
+     * @param {Array.<Array.<string,number>>} [topPageTasks]
      */
-    constructor(participatableRange, ratedRange, penalty){
+    constructor(contestScreenName, participatableRange, ratedRange, penalty, topPageTasks) {
+        this.ContestScreenName = contestScreenName;
         this.ParticipatableRange = participatableRange;
         this.RatedRange = ratedRange;
         this.Penalty = penalty;
+        this.TopPageTasks = topPageTasks;
+    }
+    /**
+     * @param {boolean} [cached]
+     * @return {Task[]}
+     */
+    async getTasks(cached=true) {
+        if (cached) {
+            const tasksFromLS = getLS(`atcoder-userscript-libs-tasks-${this.ContestScreenName}`);
+            if (tasksFromLS) return tasksFromLS.map(x => Task.fromJson(x));
+            else return (await fetchTasks(this.ContestScreenName, this.TopPageTasks));
+        } else return (await fetchTasks(this.ContestScreenName, this.TopPageTasks));
+
+        async function fetchTasks(contestScreenName, topPageTasks) {
+            try {
+                const standings = await getStandingsData(contestScreenName);
+                const standingsTaskInfo = standings.TaskInfo;
+                const tasks = [];
+                for (const standingsTask of standingsTaskInfo) {
+                    const assignment = standingsTask.Assignment;
+                    const taskScreenName = standingsTask.TaskScreenName;
+                    let point;
+                    if (topPageTasks.length) {
+                        point = topPageTasks.find(x => x[0] === assignment)[1];
+                    } else {
+                        point = await fetchTaskPoint(taskScreenName);
+                    }
+                    tasks.push(new Task(assignment, point, taskScreenName));
+                }
+                setLS(`atcoder-userscript-libs-tasks-${contestScreenName}`, tasks);
+                return tasks;
+            } catch(e) {
+                return [];
+            }
+
+            async function fetchTaskPoint(taskScreenName) {
+                const taskPageDom = await $.ajax(`https://atcoder.jp/contests/${contestScreenName}/tasks/${taskScreenName}`).then(x => new DOMParser().parseFromString(x, "text/html"));
+                const point = parseInt($(taskPageDom).find("#task-statement").find("var").eq(0).text());
+                if (!isNaN(point)) return point;
+                else throw new Error();
+            }
+        }
+    }
+}
+
+class Task {
+    /**
+     * @param {string} assignment
+     * @param {number} point
+     * @param {string} taskScreenName
+     */
+    constructor(assignment, point, taskScreenName) {
+        this.assignment = assignment;
+        this.point = point;
+        this.taskScreenName = taskScreenName;
+    }
+    toJSON() {
+        return {
+            assignment: this.assignment,
+            point: this.point,
+            taskScreenName: this.taskScreenName
+        };
+    }
+    static fromJson(obj) {
+        return new this(obj.assignment, obj.point, obj.taskScreenName);
     }
 }
 
@@ -21,9 +91,28 @@ class ContestInformation{
 export async function fetchContestInformation(contestScreenName) {
     return new Promise(async (resolve) => {
         const topPageDom = await $.ajax(`https://atcoder.jp/contests/${contestScreenName}`).then(x => new DOMParser().parseFromString(x, "text/html"));
-        const dataParagraph = topPageDom.getElementsByClassName("small")[0];
-        const data = Array.from(dataParagraph.children).map(x => x.innerText.split(':')[1].trim());
-        resolve(new ContestInformation(parseRangeString(data[0]), parseRangeString(data[1]), parseDurationString(data[2])));
+
+        const dataParagraphSmall = topPageDom.getElementsByClassName("small")[0];
+        const dataSmall = Array.from(dataParagraphSmall.children).map(x => x.innerText.split(':')[1].trim());
+
+        let pointParagraph = $(topPageDom).find("h3:contains(配点)+section tbody").children();  // 新ABC
+        if (!pointParagraph.length) {
+            pointParagraph = $(topPageDom).find("h3:contains(配点)~.row tbody").children();  // AGC
+        }
+        const taskPoints = [];
+        pointParagraph.each((_, tr) => {
+            const assignment = $(tr).children().eq(0).text();
+            const point = parsePointString($(tr).children().eq(1).text());
+            if (!isNaN(point)) taskPoints.push([assignment, point]);
+        });
+
+        resolve(new ContestInformation(
+            contestScreenName,
+            parseRangeString(dataSmall[0]),
+            parseRangeString(dataSmall[1]),
+            parseDurationString(dataSmall[2]),
+            taskPoints
+        ));
     });
 
     /**
@@ -57,5 +146,15 @@ export async function fetchContestInformation(contestScreenName) {
             res[convertedUnit] = num;
         });
         return moment.duration(res).asMilliseconds();
+    }
+    /**
+     * 配点を表す文字列をパースする
+     * @param {string} [s] 配点を表す文字列
+     * @return {number} パース結果(整数かNaN)
+     */
+    function parsePointString(s) {
+        if (s.match(/\d+/)) return parseInt(s);
+        if (s.match(/(\d+)\(\d+\)/)) return s.match(/(\d+)\(\d+\)/)[1];  // 部分点
+        return NaN;
     }
 }
