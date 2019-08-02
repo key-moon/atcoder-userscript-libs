@@ -1,6 +1,6 @@
 import * as moment from "moment";
 import { getStandingsData } from "./data";
-import { getLS } from "./global";
+import { getLS, setLS } from "./global";
 
 class ContestInformation{
     /**
