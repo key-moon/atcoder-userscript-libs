@@ -53,8 +53,7 @@ class ContestInformation{
             async function fetchTaskPoint(taskScreenName) {
                 const taskPageDom = await $.ajax(`https://atcoder.jp/contests/${contestScreenName}/tasks/${taskScreenName}`).then(x => new DOMParser().parseFromString(x, "text/html"));
                 const point = parseInt($(taskPageDom).find("#task-statement").find("var").eq(0).text());
-                if (!isNaN(point)) return [point];
-                else throw new Error();
+                return [point];
             }
         }
     }
@@ -103,12 +102,10 @@ export async function fetchContestInformation(contestScreenName) {
         pointParagraph.each((_, tr) => {
             const assignment = $(tr).children().eq(0).text();
             const point = parsePointString($(tr).children().eq(1).text());
-            if (point.every(x => !isNaN(x))) {
-                taskPoints.push({
-                    assignment: assignment,
-                    point: point
-                });
-            };
+            taskPoints.push({
+                assignment: assignment,
+                point: point
+            });
         });
 
         resolve(new ContestInformation(
