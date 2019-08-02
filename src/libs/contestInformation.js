@@ -53,7 +53,7 @@ class ContestInformation{
             async function fetchTaskPoint(taskScreenName) {
                 const taskPageDom = await $.ajax(`https://atcoder.jp/contests/${contestScreenName}/tasks/${taskScreenName}`).then(x => new DOMParser().parseFromString(x, "text/html"));
                 const point = parseInt($(taskPageDom).find("#task-statement").find("var").eq(0).text());
-                if (!isNaN(point)) return point;
+                if (!isNaN(point)) return [point];
                 else throw new Error();
             }
         }
