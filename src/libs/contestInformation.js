@@ -8,7 +8,7 @@ class ContestInformation{
      * @param {number[]} [participatableRange]
      * @param {number[]} [ratedRange]
      * @param {number} [penalty]
-     * @param {Array.<Array.<string,number>>} [topPageTasks]
+     * @param {Array.<Array.<string,number[]>>} [topPageTasks]
      */
     constructor(contestScreenName, participatableRange, ratedRange, penalty, topPageTasks) {
         this.ContestScreenName = contestScreenName;
@@ -63,7 +63,7 @@ class ContestInformation{
 class Task {
     /**
      * @param {string} assignment
-     * @param {number} point
+     * @param {number[]} point
      * @param {string} taskScreenName
      */
     constructor(assignment, point, taskScreenName) {
@@ -103,7 +103,7 @@ export async function fetchContestInformation(contestScreenName) {
         pointParagraph.each((_, tr) => {
             const assignment = $(tr).children().eq(0).text();
             const point = parsePointString($(tr).children().eq(1).text());
-            if (!isNaN(point)) taskPoints.push([assignment, point]);
+            if (point.every(x => !isNaN(x))) taskPoints.push([assignment, point]);
         });
 
         resolve(new ContestInformation(
@@ -150,12 +150,12 @@ export async function fetchContestInformation(contestScreenName) {
     /**
      * 配点を表す文字列をパースする
      * @param {string} [s] 配点を表す文字列
-     * @return {number} パース結果(整数かNaN)
+     * @return {number[]} パース結果(整数かNaNの配列)
      */
     function parsePointString(s) {
-        if (s.match(/^\d+$/)) return parseInt(s);
-        const partialPointReg = /(\d+)\s*\(\d+\)/;
-        if (s.match(partialPointReg)) return parseInt(s.match(partialPointReg)[1]);  // 部分点
-        return NaN;
+        if (s.match(/^\d+$/)) return [parseInt(s)];
+        const partialPointReg = /(\d+)\s*\((\d+)\)/;
+        if (s.match(partialPointReg)) return [parseInt(s.match(partialPointReg)[1]), parseInt(s.match(partialPointReg)[2])];
+        return [NaN];
     }
 }
