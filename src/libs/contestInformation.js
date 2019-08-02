@@ -8,7 +8,7 @@ class ContestInformation{
      * @param {number[]} [participatableRange]
      * @param {number[]} [ratedRange]
      * @param {number} [penalty]
-     * @param {Array.<Array.<string,number[]>>} [topPageTasks]
+     * @param {object} [topPageTasks]
      */
     constructor(contestScreenName, participatableRange, ratedRange, penalty, topPageTasks) {
         this.ContestScreenName = contestScreenName;
@@ -38,7 +38,7 @@ class ContestInformation{
                     const taskScreenName = standingsTask.TaskScreenName;
                     let point;
                     if (topPageTasks.length) {
-                        point = topPageTasks.find(x => x[0] === assignment)[1];
+                        point = topPageTasks.find(x => x.assignment === assignment).point;
                     } else {
                         point = await fetchTaskPoint(taskScreenName);
                     }
@@ -103,7 +103,12 @@ export async function fetchContestInformation(contestScreenName) {
         pointParagraph.each((_, tr) => {
             const assignment = $(tr).children().eq(0).text();
             const point = parsePointString($(tr).children().eq(1).text());
-            if (point.every(x => !isNaN(x))) taskPoints.push([assignment, point]);
+            if (point.every(x => !isNaN(x))) {
+                taskPoints.push({
+                    assignment: assignment,
+                    point: point
+                });
+            };
         });
 
         resolve(new ContestInformation(
